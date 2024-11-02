@@ -1,0 +1,641 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.modal-content h2 {
+    color: #1a237e;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.modal-content h2 i {
+    margin-right: 10px;
+    color: #764ba2;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+#usernameInput {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+#usernameInput:focus {
+    border-color: #764ba2;
+    box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.1);
+}
+
+.join-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 1000px;
+    height: 85vh;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left h2 {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-right {
+    display: flex;
+    gap: 20px;
+}
+
+.user-info, .active-users {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.users-list {
+    padding: 10px 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f8f9fa;
+}
+
+.message {
+    margin: 15px 0;
+    padding: 12px 15px;
+    border-radius: 15px;
+    max-width: 70%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.message .username {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.message .message-time {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.sent {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin-left: auto;
+    border-radius: 15px 15px 0 15px;
+}
+
+.received {
+    background: white;
+    margin-right: auto;
+    border-radius: 15px 15px 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.chat-input {
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #eee;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 15px;
+    background: #f8f9fa;
+    padding: 8px;
+    border-radius: 25px;
+    border: 2px solid #e0e0e0;
+}
+
+#messageInput {
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    font-size: 0.95rem;
+    background: transparent;
+}
+
+button {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.send-btn {
+    padding: 12px 20px;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #764ba2;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .chat-container {
+        width: 95%;
+        height: 90vh;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 30px;
+    }
+
+    .header-right {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .message {
+        max-width: 85%;
+    }
+}
+
+/* Add these new styles */
+.emoji-picker {
+    position: absolute;
+    bottom: 80px;
+    left: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.emoji-container {
+    display: flex;
+    gap: 10px;
+    font-size: 1.5rem;
+}
+
+.emoji-container span {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.emoji-container span:hover {
+    transform: scale(1.2);
+}
+
+.emoji-btn {
+    background: transparent;
+    color: #666;
+    padding: 8px;
+}
+
+.emoji-btn:hover {
+    background: #eee;
+    transform: none;
+    box-shadow: none;
+}
+
+.message-reactions {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+    flex-wrap: wrap;
+}
+
+.reaction {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border: 1px solid #eee;
+}
+
+.reaction:hover {
+    transform: scale(1.1);
+}
+
+.reaction-count {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.message-actions {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+}
+
+.message:hover .message-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.action-btn {
+    background: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-size: 0.9rem;
+}
+
+/* Update and add these styles */
+
+.message {
+    margin: 15px 0;
+    padding: 12px 15px;
+    border-radius: 15px;
+    max-width: 70%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+/* Add hover effect to message */
+.message:hover {
+    transform: scale(1.01);
+}
+
+/* Update message reactions styling */
+.message-reactions {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.sent .message-reactions {
+    justify-content: flex-end;
+}
+
+/* Update reaction styling */
+.reaction {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 4px 8px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+/* Style for reactions on sent messages */
+.sent .reaction {
+    background: rgba(102, 126, 234, 0.1);
+    border-color: rgba(102, 126, 234, 0.2);
+}
+
+.reaction:hover {
+    transform: scale(1.1);
+    z-index: 2;
+}
+
+.reaction-count {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+}
+
+/* Update message actions styling */
+.message-actions {
+    position: absolute;
+    right: -45px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    background: white;
+    border-radius: 20px;
+    padding: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 100;
+}
+
+.message:hover .message-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    animation: fadeIn 0.2s ease;
+}
+
+.action-btn {
+    background: white;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    border: 1px solid #eee;
+}
+
+.action-btn:hover {
+    background: #f8f9fa;
+    transform: scale(1.1);
+}
+
+/* Update emoji picker styling */
+.emoji-picker {
+    position: absolute;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    padding: 12px;
+    z-index: 1000;
+    border: 1px solid #eee;
+    animation: fadeIn 0.2s ease;
+}
+
+.emoji-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    padding: 5px;
+}
+
+.emoji-container span {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.emoji-container span:hover {
+    transform: scale(1.2);
+    background: #f8f9fa;
+}
+
+/* Add new styles for reaction tooltips */
+.reaction-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    display: none;
+    margin-bottom: 5px;
+}
+
+.reaction:hover .reaction-tooltip {
+    display: block;
+    animation: fadeIn 0.2s ease;
+}
+
+/* Add new animation for reactions */
+@keyframes popIn {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.reaction.new {
+    animation: popIn 0.3s ease;
+}
+
+/* Update message content spacing */
+.message-content {
+    margin-bottom: 5px;
+}
+
+/* Add styles for reaction stacking */
+.message-reactions {
+    margin-left: -5px; /* Negative margin for overlapping effect */
+}
+
+.reaction {
+    margin-left: -5px; /* Negative margin for overlapping effect */
+    position: relative;
+}
+
+.reaction:not(:first-child) {
+    margin-left: -10px;
+}
+
+.reaction:hover {
+    margin-left: 0;
+    z-index: 2;
+}
+
+/* Update message and reaction styles */
+.message {
+    margin: 15px 0;
+    padding: 12px 15px;
+    border-radius: 15px;
+    max-width: 70%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-reactions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-top: 5px;
+    position: absolute;
+    bottom: -15px;
+    left: 10px;
+    z-index: 2;
+}
+
+.sent .message-reactions {
+    right: 10px;
+    left: auto;
+}
+
+.reaction {
+    background: white;
+    border-radius: 12px;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s ease;
+}
+
+.sent .reaction {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.my-reaction {
+    background: #e3f2fd;
+    border-color: #90caf9;
+}
+
+.reaction:hover {
+    transform: scale(1.1);
+    z-index: 3;
+}
+
+/* Update message actions for reaction button */
+.message-actions {
+    position: absolute;
+    right: -35px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.message:hover .message-actions {
+    opacity: 1;
+}
+
+.action-btn {
+    background: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 5px;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    transform: scale(1.1);
+    background: #f5f5f5;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Chat Room</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="usernameModal" class="modal">
+        <div class="modal-content">
+            <h2><i class="fas fa-comments"></i> Welcome to ChatRoom</h2>
+            <div class="input-group">
+                <input type="text" id="usernameInput" placeholder="Enter your name...">
+            </div>
+            <button onclick="setUsername()" class="join-btn">
+                <i class="fas fa-sign-in-alt"></i> Join Chat
+            </button>
+        </div>
+    </div>
+
+    <div class="chat-container" id="chatContainer" style="display: none;">
+        <div class="chat-header">
+            <div class="header-left">
+                <h2><i class="fas fa-comments"></i> ChatRoom</h2>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <i class="fas fa-user"></i>
+                    <span id="displayUsername"></span>
+                </div>
+                <div class="active-users">
+                    <i class="fas fa-users"></i>
+                    <span id="userCount">0</span> online
+                </div>
+            </div>
+        </div>
+        
+        <div class="users-list" id="activeUsersList"></div>
+        <div class="chat-messages" id="messageArea"></div>
+        
+        <div class="emoji-picker" id="emojiPicker" style="display: none;">
+            <div class="emoji-container">
+                👍 👎 ❤️ 😊 😂 😮 😢 😡 👏 🎉
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <div class="input-wrapper">
+                <button class="emoji-btn" onclick="toggleEmojiPicker()">
+                    <i class="fas fa-smile"></i>
+                </button>
+                <input type="text" id="messageInput" placeholder="Type your message...">
+                <button onclick="sendMessage()" class="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>
